@@ -19,20 +19,34 @@ public class MemberDao {
 
     // 회원 전체 조회
     public List<Member> memberList() {
-        String query = "SELECT * FROM member";
-        return jdbcTemplate.query(query, new MemberRowMapper());
+        String sql = "SELECT * FROM member";
+        return jdbcTemplate.query(sql, new MemberRowMapper());
     }
     // 회원 등록
-    public boolean insertMember(Member member) {
+    public boolean insert(Member member) {
         int result = 0;
-        String query = "INSERT INTO member(email, pwd, name) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO member(email, pwd, name) VALUES(?, ?, ?)";
         try {
-            result = jdbcTemplate.update(query, member.getEmail(),
+            result = jdbcTemplate.update(sql, member.getEmail(),
                     member.getPwd(), member.getName());
 
         } catch (Exception e) {
             log.error("회원 정보 추가 실패 : {}", e.getMessage());
         }
+        return result > 0;
+    }
+
+    // 회원 수정
+    public boolean update(Member member) {
+        String sql = "UPDATE member SET name=?, pwd=? WHERE email=?";
+        int result = jdbcTemplate.update(sql, member.getName(), member.getPwd(), member.getEmail());
+        return  result > 0;
+    }
+
+    // 회원 삭제
+    public boolean delete(String email) {
+        String sql = "DELETE FROM member WHERE email=?";
+        int result = jdbcTemplate.update(sql, email);
         return result > 0;
     }
 

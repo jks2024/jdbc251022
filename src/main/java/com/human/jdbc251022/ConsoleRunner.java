@@ -31,6 +31,7 @@ public class ConsoleRunner implements CommandLineRunner {
                 case 1: signUp(); break;
                 case 2: memberList(); break;
                 case 3: updateMember(); break;
+                case 4: deleteMember(); break;
             }
         }
     }
@@ -42,7 +43,7 @@ public class ConsoleRunner implements CommandLineRunner {
         String pwd = sc.nextLine();
         System.out.print("이름: ");
         String name = sc.nextLine();
-        boolean isSuccess = memberDao.insertMember(new Member(email, pwd, name, null));
+        boolean isSuccess = memberDao.insert(new Member(email, pwd, name, null));
         System.out.println("회원 가입 : " + (isSuccess ? "성공" : "실패"));
     }
 
