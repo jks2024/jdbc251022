@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 // 콘솔 입력 만들기 위한 파일
@@ -29,7 +30,10 @@ public class ConsoleRunner implements CommandLineRunner {
                     System.out.println("회원 가입 : " + (isSuccess ? "성공" : "실패"));
                     break;
                 case 2:
-
+                    List<Member> memberList = memberDao.memberList();
+                    System.out.println("======== 회원 목록 조회 =========");
+                    for(Member member: memberList) System.out.println(member);
+                    break;
             }
         }
     }
@@ -43,4 +47,5 @@ public class ConsoleRunner implements CommandLineRunner {
         String name = sc.nextLine();
         return new Member(email, pwd, name, null);
     }
+
 }
