@@ -21,23 +21,20 @@ public class ConsoleRunner implements CommandLineRunner {
             System.out.println("====== 콘솔 회원 관리 시스템 ======");
             System.out.println("[1]회원 등록");
             System.out.println("[2]회원 목록 조회");
+            System.out.println("[3]회원 정보 수정");
+            System.out.println("[4]회원 삭제");
+            System.out.println("[6]종료");
 
             int sel = sc.nextInt();
             sc.nextLine();
             switch (sel) {
-                case 1:
-                    boolean isSuccess = memberDao.insertMember(regMember());
-                    System.out.println("회원 가입 : " + (isSuccess ? "성공" : "실패"));
-                    break;
-                case 2:
-                    List<Member> memberList = memberDao.memberList();
-                    System.out.println("======== 회원 목록 조회 =========");
-                    for(Member member: memberList) System.out.println(member);
-                    break;
+                case 1: signUp(); break;
+                case 2: memberList(); break;
+                case 3: updateMember(); break;
             }
         }
     }
-    private Member regMember() {
+    private void signUp() {
         System.out.println("======== 회원 등록 ========");
         System.out.print("이메일: ");
         String email = sc.nextLine();
@@ -45,7 +42,25 @@ public class ConsoleRunner implements CommandLineRunner {
         String pwd = sc.nextLine();
         System.out.print("이름: ");
         String name = sc.nextLine();
-        return new Member(email, pwd, name, null);
+        boolean isSuccess = memberDao.insertMember(new Member(email, pwd, name, null));
+        System.out.println("회원 가입 : " + (isSuccess ? "성공" : "실패"));
+    }
+
+    private void memberList() {
+        List<Member> memberList = memberDao.memberList();
+        if (memberList.isEmpty()) {
+            System.out.println("등록된 회원이 없습니다.");
+            return;
+        }
+        for(Member e : memberList) System.out.println(e);
+    }
+
+    private void updateMember() {
+
+    }
+
+    private void deleteMember() {
+
     }
 
 }
