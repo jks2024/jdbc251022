@@ -20,7 +20,12 @@ public class MemberDao {
     // 회원 전체 조회
     public List<Member> memberList() {
         String sql = "SELECT * FROM member";
-        return jdbcTemplate.query(sql, new MemberRowMapper());
+        try {
+            return jdbcTemplate.query(sql, new MemberRowMapper());
+        } catch (Exception e) {
+            log.error("회원 목록 조회 실패: {}", e.getMessage());
+            return null;
+        }
     }
     // 회원 등록
     public boolean insert(Member member) {
