@@ -19,12 +19,29 @@ public class ConsoleRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         while (true) {
             System.out.println("====== 콘솔 회원 관리 시스템 ======");
-            System.out.println("[1]회원 등록");
-            System.out.println("[2]회원 목록 조회");
-            System.out.println("[3]회원 정보 수정");
-            System.out.println("[4]회원 삭제");
-            System.out.println("[6]종료");
+            System.out.println("[1]회원 관리");
+            System.out.println("[2]게시글 관리");
+            System.out.println("[3]댓글 관리");
+            System.out.println("[4]종료");
 
+            int sel = sc.nextInt();
+            sc.nextLine();
+            switch (sel) {
+                case 1: memberMenu(); break;
+                case 2: postMenu(); break;
+                case 3: commentMenu(); break;
+                case 4: return;
+            }
+        }
+    }
+    private void memberMenu() {
+        while (true) {
+            System.out.println("===== 회원 관리 세부 메뉴 =====");
+            System.out.println("[1]회원 등록");
+            System.out.println("[2]회원 목록");
+            System.out.println("[3]회원 수정");
+            System.out.println("[4]회원 삭제");
+            System.out.println("[5]상위 메뉴로 이동");
             int sel = sc.nextInt();
             sc.nextLine();
             switch (sel) {
@@ -32,9 +49,20 @@ public class ConsoleRunner implements CommandLineRunner {
                 case 2: memberList(); break;
                 case 3: updateMember(); break;
                 case 4: deleteMember(); break;
+                case 5: return;
             }
         }
     }
+
+    private void postMenu() {
+
+    }
+
+    private void commentMenu() {
+
+    }
+
+
     private void signUp() {
         System.out.println("======== 회원 등록 ========");
         System.out.print("이메일: ");
@@ -74,5 +102,7 @@ public class ConsoleRunner implements CommandLineRunner {
         String email = sc.nextLine();
         boolean isSuccess = memberDao.delete(email);
     }
+
+
 
 }
