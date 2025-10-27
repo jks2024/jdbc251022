@@ -57,11 +57,22 @@ public class ConsoleRunner implements CommandLineRunner {
     }
 
     private void updateMember() {
-
+        System.out.println("======== 회원 수정 ========");
+        System.out.print("이메일: ");
+        String email = sc.nextLine();
+        System.out.print("비밀번호: ");
+        String pwd = sc.nextLine();
+        System.out.print("이름: ");
+        String name = sc.nextLine();
+        boolean isSuccess = memberDao.update(new Member(email, pwd, name, null));
+        System.out.println("회원 수정 : " + (isSuccess ? "성공" : "실패"));
     }
 
     private void deleteMember() {
-
+        System.out.println("======== 회원 삭제 ========");
+        System.out.print("이메일: ");
+        String email = sc.nextLine();
+        boolean isSuccess = memberDao.delete(email);
     }
 
 }
